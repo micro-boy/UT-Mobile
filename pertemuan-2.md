@@ -233,7 +233,7 @@ Dalam situasi seperti saat ini, membangun aplikasi mobile dengan data yang tersi
 
 Dalam kondisi demikian, seringkali aplikasi dibuat untuk dua sisi yaitu **frontend** (bagian yang menyediakan tampilan antarmuka pemakai/user interface) serta bagian yang menyediakan akses data di sisi **backend** (terletak pada suatu server tertentu di Internet). Backend akan menyediakan suatu endpoint yang dapat diakses oleh frontend dengan menggunakan protokol tertentu. 
 
-![Mekanisme Client - Server/Frontend - Backend](https://github.com/user-attachments/assets/9f0ae5e5-a592-4b60-a55c-9a82b8bf52d4)
+<img src="https://github.com/user-attachments/assets/9f0ae5e5-a592-4b60-a55c-9a82b8bf52d4" width="400">
 
 **Gambar 2.1**
 Mekanisme Client - Server/Frontend - Backend.
