@@ -4,15 +4,15 @@
 
 ## 📋 Daftar Isi
 
-- [Praktikum 1.1: Lingkungan Pengembangan Aplikasi Perangkat Bergerak](#praktikum-11-lingkungan-pengembangan-aplikasi-perangkat-bergerak)
-  - [A. Ionic Framework](#a-ionic-framework)
-  - [Instalasi dan Konfigurasi Lingkungan Pengembangan](#instalasi-dan-konfigurasi-lingkungan-pengembangan)
-- [Praktikum 1.2: Pemrograman TypeScript](#praktikum-12-pemrograman-typescript)
-  - [A. Dasar-dasar TypeScript](#a-dasar-dasar-typescript)
-  - [B. Pemrograman Modular di TypeScript](#b-pemrograman-modular-di-typescript)
-  - [C. Interface](#c-interface)
-  - [D. OOP di TypeScript](#d-oop-di-typescript)
-  - [E. Generics](#e-generics)
+- [Praktikum 1.1: Lingkungan Pengembangan Aplikasi Perangkat Bergerak](#-praktikum-11-lingkungan-pengembangan-aplikasi-perangkat-bergerak)
+  - [A. Ionic Framework](#-a-ionic-framework)
+  - [Instalasi dan Konfigurasi Lingkungan Pengembangan](#-instalasi-dan-konfigurasi-lingkungan-pengembangan)
+- [Praktikum 1.2: Pemrograman TypeScript](#-praktikum-12-pemrograman-typescript)
+  - [A. Dasar-dasar TypeScript](#-a-dasar-dasar-typescript)
+  - [B. Pemrograman Modular di TypeScript](#-b-pemrograman-modular-di-typescript)
+  - [C. Interface](#-c-interface)
+  - [D. OOP di TypeScript](#-d-oop-di-typescript)
+  - [E. Generics](#-e-generics)
 
 ---
 
