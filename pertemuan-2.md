@@ -4,18 +4,18 @@
 
 ## 📋 Daftar Isi
 
-- [Praktikum 2: Pemrograman TypeScript Lanjut](#praktikum-2-pemrograman-typescript-lanjut)
-  - [A. Asynchronous Programming](#a-asynchronous-programming)
-    - [1. Implementasi Asynchronous Programming pada TypeScript](#1-implementasi-asynchronous-programming-pada-typescript)
-      - [a) Pemahaman Promise](#a-pemahaman-promise)
-      - [b) Promise Chaining](#b-promise-chaining)
-      - [c) Pemahaman Async/Await](#c-pemahaman-asyncawait)
-  - [B. TypeScript untuk Backend](#b-typescript-untuk-backend)
-    - [1. Pemahaman Mekanisme Frontend - Backend](#1-pemahaman-mekanisme-frontend---backend)
-    - [2. Menggunakan TypeScript untuk Backend](#2-menggunakan-typescript-untuk-backend)
-      - [a) Persiapan](#a-persiapan)
-      - [b) Kode Sumber](#b-kode-sumber)
-      - [c) Menjalankan dan Mengekspos RESTful API Endpoint](#c-menjalankan-dan-mengekspos-restful-api-endpoint)
+- [Praktikum 2: Pemrograman TypeScript Lanjut](#-praktikum-2-pemrograman-typescript-lanjut)
+  - [A. Asynchronous Programming](#-a-asynchronous-programming)
+    - [1. Implementasi Asynchronous Programming pada TypeScript](#-1-implementasi-asynchronous-programming-pada-typescript)
+      - [a) Pemahaman Promise](#-a-pemahaman-promise)
+      - [b) Promise Chaining](#-b-promise-chaining)
+      - [c) Pemahaman Async/Await](#-c-pemahaman-asyncawait)
+  - [B. TypeScript untuk Backend](#-b-typescript-untuk-backend)
+    - [1. Pemahaman Mekanisme Frontend - Backend](#-1-pemahaman-mekanisme-frontend---backend)
+    - [2. Menggunakan TypeScript untuk Backend](#-2-menggunakan-typescript-untuk-backend)
+      - [a) Persiapan](#-a-persiapan)
+      - [b) Kode Sumber](#-b-kode-sumber)
+      - [c) Menjalankan dan Mengekspos RESTful API Endpoint](#-c-menjalankan-dan-mengekspos-restful-api-endpoint)
 
 ---
 
