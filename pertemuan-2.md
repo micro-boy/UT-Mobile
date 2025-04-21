@@ -603,7 +603,7 @@ Tampilan saat run adalah sebagai berikut:
 
 Untuk mengakses endpoint tersebut, dapat digunakan browser. Hasil jika diakses menggunakan browser dapat dilihat pada Gambar 2.4.
 
-![Hasil akses ke endpoint](https://example.com/placeholder-image4.png)
+<img src="https://github.com/user-attachments/assets/aa226f0e-1f02-4c3f-9e80-44fbde2fe4a9" width="400">
 
 **Gambar 2.4.**
 Hasil akses ke endpoint
