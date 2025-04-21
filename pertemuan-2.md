@@ -233,7 +233,7 @@ Dalam situasi seperti saat ini, membangun aplikasi mobile dengan data yang tersi
 
 Dalam kondisi demikian, seringkali aplikasi dibuat untuk dua sisi yaitu **frontend** (bagian yang menyediakan tampilan antarmuka pemakai/user interface) serta bagian yang menyediakan akses data di sisi **backend** (terletak pada suatu server tertentu di Internet). Backend akan menyediakan suatu endpoint yang dapat diakses oleh frontend dengan menggunakan protokol tertentu. 
 
-<img src="https://github.com/user-attachments/assets/9f0ae5e5-a592-4b60-a55c-9a82b8bf52d4" width="400">
+<img src="https://github.com/user-attachments/assets/9f0ae5e5-a592-4b60-a55c-9a82b8bf52d4" width="600">
 
 **Gambar 2.1**
 Mekanisme Client - Server/Frontend - Backend.
@@ -300,7 +300,7 @@ $ tsc --init // <7>
 
 Setelah perintah-perintah tersebut, struktur direktori dan file akan terlihat seperti yang ada pada Gambar 2.2.
 
-![Struktur Direktori Dan File Di Awal Pembuatan Proyek](https://github.com/user-attachments/assets/f95afde5-7d41-456f-b8fc-cb394a452547)
+<img src="https://github.com/user-attachments/assets/f95afde5-7d41-456f-b8fc-cb394a452547" width="500">
 
 **Gambar 2.2**
 Struktur Direktori Dan File Di Awal Pembuatan Proyek
@@ -362,7 +362,7 @@ Konfigurasi TypeScript diletakkan pada file tsconfig.json. Gantilah isinya denga
 
 Setelah itu, file-file kode sumber diletakkan pada direktori src (Silahkan Anda buat struktur file tersebut seperti Gambar 2.3). Struktur dari direktori dan file-file yang diperlukan dapat dilihat pada Gambar 2.3.
 
-![Struktur Direktori Dan file di src/](https://github.com/user-attachments/assets/2521b0d2-db0a-4f4b-a214-044f64fbc57b)
+<img src="https://github.com/user-attachments/assets/2521b0d2-db0a-4f4b-a214-044f64fbc57b" width="500">
 
 **Gambar 2.3**
 Struktur Direktori Dan file di src/
