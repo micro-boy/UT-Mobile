@@ -1,75 +1,60 @@
-# 📱 MSIM4401 - Modul 4: Vue Lanjutan
+# 🚦 MSIM4401 - Modul 4: Routing dan Navigasi dengan Vue Router
 
 > **Universitas Terbuka - 2025**
 
 ## 📋 Daftar Isi
 
-- [Praktikum 4: Vue Lanjutan](#praktikum-4-vue-lanjutan)
+- [Praktikum 4: Vue Lanjutan - Routing](#praktikum-4-vue-lanjutan---routing)
   - [A. Routing dan Navigasi](#a-routing-dan-navigasi)
     - [1. Instalasi Vue Router](#1-instalasi-vue-router)
     - [2. Menggunakan Vue Router](#2-menggunakan-vue-router)
+  - [B. Struktur Proyek Vue Router](#b-struktur-proyek-vue-router)
+    - [1. main.js](#1-mainjs)
+    - [2. router/index.js](#2-routerindexjs)
+    - [3. App.vue](#3-appvue)
+    - [4. Komponen Awal.vue dan Tentang.vue](#4-komponen-awalvue-dan-tentangvue)
 
 ---
 
-## ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
-## 📘 Praktikum 4: Vue Lanjutan
-## ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+## 🧩 Praktikum 4: Vue Lanjutan - Routing
 
 ### 🔶 A. Routing dan Navigasi
 
 #### 1️⃣ Instalasi Vue Router
 
-Instalasi bisa dilakukan dengan menggunakan CDN, npm, maupun npm pada SPA.
+Vue Router dapat dipasang menggunakan beberapa metode:
 
-**⚡ Praktikkan** cara instalasi berikut:
+- **Menggunakan CDN**  
+  Sertakan URL berikut:  
+  `https://unpkg.com/vue-router@4`
 
-1. Jika menggunakan CDN, konfigurasinya adalah menggunakan URL:
-   ```
-   https://unpkg.com/vue-router@4
-   ```
+- **Menggunakan npm**  
+  ```bash
+  npm install vue-router@4
+  ```
+  atau
+  ```bash
+  npm install vue-router@next
+  ```
 
-2. Jika menggunakan npm:
-   ```bash
-   $ npm install vue-router@4
-   ```
-   atau
-   ```bash
-   $ npm install vue-router@next
-   ```
-   
-   Setelah itu, file JS yang harus disertakan ada di:
-   ```
-   node_modules/vue-router/dist/vue-router/vue-router.global.js
-   ```
-
-3. Jika akan membangun SPA, gunakan:
-   ```bash
-   $ npm install vue-router@4 --save-dev
-   ```
-   atau
-   ```bash
-   $ npm install vue-router@next
-   ```
-   
-   Perintah ini dijalankan di direktori proyek setelah membuat proyek menggunakan vue/cli. Argumen `--save-dev` digunakan supaya dependensi Vue Router dicatat di package.json.
+- **Untuk SPA (Single Page Application)**  
+  Jalankan perintah berikut setelah membuat proyek Vue CLI:
+  ```bash
+  npm install vue-router@4 --save-dev
+  ```
+  Argumen `--save-dev` menandai bahwa dependensi router hanya untuk pengembangan dan akan dicatat di `package.json`.
 
 #### 2️⃣ Menggunakan Vue Router
 
-Gambar 4.1 adalah hasil yang akan dicapai pada modul praktik ini, yang memberikan contoh penggunaan Vue Router. Jika dijalankan, proyek ini akan menampilkan tampilan untuk Awal dan Tentang.
+> 💡 Gambar 4.1 menggambarkan tampilan antarmuka hasil routing dengan tautan ke halaman *Awal* dan *Tentang*.
 
-![Hasil Routing Menggunakan Vue Router](https://example.com/placeholder-image1.png)
+---
 
-**Gambar 4.1**: Hasil Routing Menggunakan Vue Router
+### 📁 B. Struktur Proyek Vue Router
 
-Struktur folder/file yang akan dipraktikkan pada folder `src/` dapat dilihat pada Gambar 4.2.
+Struktur direktori pada folder `src/` ditampilkan seperti pada **Gambar 4.2**, dengan file utama berikut:
 
-![Struktur Direktori Proyek Yang Melibatkan Vue Router](https://example.com/placeholder-image2.png)
-
-**Gambar 4.2**: Struktur Direktori Proyek Yang Melibatkan Vue Router
-
-<div class="code-header">
-<strong>Listing 4.1:</strong> Routing - main.js
-</div>
+#### 📄 1. main.js
 
 ```javascript
 import { createApp } from 'vue'
@@ -79,9 +64,11 @@ import router from './router'
 createApp(App).use(router).mount('#app')
 ```
 
-<div class="code-header">
-<strong>Listing 4.2:</strong> Routing - router/index.js
-</div>
+📌 **Listing 4.1** – Routing: main.js
+
+---
+
+#### 📄 2. router/index.js
 
 ```javascript
 import { createWebHistory, createRouter } from "vue-router";
@@ -109,66 +96,59 @@ const router = createRouter({
 export default router;
 ```
 
-<div class="code-explanation">
-<strong>Penjelasan:</strong>
-File router/index.js berfungsi untuk menetapkan nama serta jejak dari rute ("/" dan "/tentang") dan kemudian komponen yang akan digunakan untuk menangani jejak dari rute tersebut. Komponen tersebut didefinisikan di components/Awal.vue dan components/Tentang.vue.
-</div>
+📌 **Listing 4.2** – Routing: router/index.js  
+File ini menetapkan jalur (route) `"/"` dan `"/tentang"` beserta komponen yang ditampilkan.
 
-<div class="code-header">
-<strong>Listing 4.3:</strong> Routing - App.vue
-</div>
+---
 
-```html
+#### 📄 3. App.vue
+
+```vue
 <template>
   <div id="nav">
-    <router-link to="/awal">Awal</router-link> |
-    <router-link to="/tentang">Tentang</router-link>
+      <router-link to="/awal">Awal</router-link> |
+      <router-link to="/tentang">Tentang</router-link>
   </div>
   <router-view />
 </template>
 ```
 
-<div class="code-header">
-<strong>Listing 4.4:</strong> Routing - components/Awal.vue
-</div>
+📌 **Listing 4.3** – Routing: App.vue  
+Menampilkan navigasi antarkomponen dan menggunakan `<router-view />` untuk menampilkan konten sesuai rute.
 
-```html
+---
+
+#### 📄 4. Komponen Awal.vue dan Tentang.vue
+
+**Awal.vue**
+```vue
 <template>
   <p>Halaman <b>Awal</b></p>
 </template>
 ```
 
-<div class="code-header">
-<strong>Listing 4.5:</strong> Routing - components/Tentang.vue
-</div>
+📌 **Listing 4.4** – Routing: components/Awal.vue
 
-```html
+**Tentang.vue**
+```vue
 <template>
   <p>Halaman <b>Tentang</b></p>
 </template>
 ```
 
-<div class="code-explanation">
-<strong>Penjelasan:</strong>
-Listing 4.4 dan 4.5 berfungsi untuk menetapkan komponen yang akan menangani jejak rute seperti yang telah didefisinikan di file router/index.js.
-</div>
+📌 **Listing 4.5** – Routing: components/Tentang.vue
+
+---
 
 ## 📚 Referensi
 
 1. [Vue Router Documentation](https://router.vuejs.org/)
-2. [Vue.js Official Documentation](https://v3.vuejs.org/)
-3. [Vue CLI Documentation](https://cli.vuejs.org/)
-4. [Vue.js Style Guide](https://vuejs.org/style-guide/)
+2. [Vue 3 Official Guide](https://vuejs.org/guide/)
+3. [Vue CLI](https://cli.vuejs.org/)
 
-## 🧩 Latihan
+## 📝 Latihan
 
-1. Buatlah sebuah aplikasi Vue dengan minimal 3 halaman yang terhubung menggunakan Vue Router.
-2. Implementasikan nested routes dalam aplikasi Vue anda untuk menampilkan sub-halaman.
-3. Buat aplikasi Vue dengan router guards untuk mengelola hak akses pengguna ke halaman tertentu.
+1. Tambahkan satu rute baru dengan path `/kontak` dan tampilkan halaman sederhana "Ini Halaman Kontak".
+2. Gunakan parameter dinamis seperti `/detail/:id` dan tampilkan nilai parameter di halaman.
+3. Ubah navigasi menjadi horizontal menu menggunakan `<nav>` dan gaya CSS dasar.
 
-## 🔍 Tips Pengembangan
-
-- Gunakan named routes untuk memudahkan navigasi dan menghindari hardcoded URLs.
-- Implementasikan router guards untuk logika navigasi kompleks seperti autentikasi.
-- Manfaatkan nested routes untuk membuat UI yang hierarkis dan terstruktur.
-- Pertimbangkan penggunaan lazy loading untuk meningkatkan performa aplikasi.
