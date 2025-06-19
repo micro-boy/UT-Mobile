@@ -1,975 +1,814 @@
-# 📱 Ionic Framework untuk Pemula Absolut
-### Tutorial Lengkap 2024-2025
+# 🚀 Tutorial Ionic React To-Do App - Step by Step
+
+## 📋 Table of Contents
+1. [Setup Project](#1-setup-project)
+2. [Struktur Folder](#2-struktur-folder)
+3. [Ionic Components](#3-ionic-components)
+4. [State Management](#4-state-management)
+5. [Local Storage](#5-local-storage)
+6. [UI Components](#6-ui-components)
+7. [CRUD Operations](#7-crud-operations)
+8. [Filter & Search](#8-filter--search)
+9. [Styling & Theme](#9-styling--theme)
+10. [Build & Deploy](#10-build--deploy)
 
 ---
 
-## 📚 Daftar Isi
+## 1. Setup Project
 
-### [Bab 1: Memulai dengan Ionic](#bab-1-memulai-dengan-ionic)
-- [Apa itu Ionic?](#-apa-itu-ionic)
-- [Setup Environment](#-setup-environment)
-- [Project Pertama: To-Do App](#-project-pertama-to-do-app)
-
-### [Bab 2: Navigasi dan Deployment](#bab-2-navigasi-dan-deployment)
-- [Membuat Multi-Page App](#-membuat-multi-page-app)
-- [Styling dan Theming](#-styling-dan-theming)
-- [Deploy ke Device](#-deploy-ke-device)
-
----
-
-# Bab 1: Memulai dengan Ionic
-
-## 🚀 Apa itu Ionic?
-
-> **Ionic adalah toolkit UI yang memungkinkan kamu membuat aplikasi mobile menggunakan teknologi web (HTML, CSS, JavaScript) yang sudah familiar!**
-
-### Kenapa Ionic? 🤔
-
-| ✅ **Keuntungan** | ❌ **Keterbatasan** |
-|-------------------|---------------------|
-| Satu kode untuk iOS & Android | Performa sedikit lebih lambat dari native |
-| Menggunakan teknologi web familiar | Akses terbatas ke fitur device tertentu |
-| Lebih cepat dan murah dibanding native | Tampilan mungkin tidak 100% native feel |
-| Bisa jadi web app juga (PWA) | Memerlukan learning curve untuk mobile UX |
-
-### 🏗️ Bagaimana Ionic Bekerja?
-
-```
-📱 Your Web App (HTML/CSS/JS)
-        ⬇️
-🎨 Ionic UI Components
-        ⬇️
-⚡ Capacitor (Native Bridge)
-        ⬇️
-📲 Native iOS/Android App
-```
-
----
-
-## 🛠️ Setup Environment
-
-### Prerequisites
-
-Sebelum mulai, pastikan kamu punya:
-
-- **Node.js** (versi 18 atau 20 LTS) ➡️ [Download di sini](https://nodejs.org)
-- **Code Editor** (VS Code recommended) ➡️ [Download VS Code](https://code.visualstudio.com)
-- **Git** untuk version control ➡️ [Download Git](https://git-scm.com)
-
-### 🔧 Instalasi Step-by-Step
-
-#### Step 1: Cek Node.js
+### 1.1 Install Prerequisites
 ```bash
-node --version
-npm --version
-```
-> Harus keluar versi angka, misal: `v20.9.0` dan `10.1.0`
+# Install Node.js (versi 16 atau lebih baru)
+# Download dari: https://nodejs.org
 
-#### Step 2: Install Ionic CLI
-```bash
-# Hapus instalasi lama (kalau ada)
-npm uninstall -g ionic
-
-# Install yang terbaru
+# Install Ionic CLI
 npm install -g @ionic/cli
+
+# Install Capacitor CLI (untuk mobile)
+npm install -g @capacitor/cli
 ```
 
-#### Step 3: Verifikasi Instalasi
-```bash
-ionic --version
-ionic info
-```
-
-> 💡 **Tips**: Kalau dapat error permission, coba pakai `sudo` di Mac/Linux atau run command prompt sebagai Administrator di Windows
-
-### 🎯 Template Project yang Tersedia
-
-| Template | Cocok untuk | Difficulty |
-|----------|-------------|------------|
-| `blank` | Belajar dari nol | ⭐ |
-| `tabs` | App dengan tab navigation | ⭐⭐ |
-| `sidemenu` | App dengan side menu | ⭐⭐ |
-| `list` | App dengan list data | ⭐⭐ |
-| `conference` | Demo app lengkap | ⭐⭐⭐ |
-
----
-
-## 📝 Project Pertama: To-Do App
-
-Kita akan membuat aplikasi To-Do List sederhana yang bisa:
-- ✅ Tambah task baru
-- ✅ Mark task sebagai selesai
-- ✅ Hapus task
-- ✅ Simpan data di local storage
-
-### 🚀 Langkah 1: Buat Project
-
+### 1.2 Create New Project
 ```bash
 # Buat project baru
-ionic start MyTodoApp blank --type=angular --capacitor
+ionic start TodoApp tabs --type=react --capacitor
 
 # Masuk ke folder project
-cd MyTodoApp
+cd TodoApp
 
-# Install dependencies tambahan untuk PWA
-npm install @ionic/pwa-elements
+# Install dependencies tambahan
+npm install @ionic/react @ionic/react-router ionicons
+npm install @types/react @types/react-dom
+```
 
-# Jalankan aplikasi
+### 1.3 Run Development Server
+```bash
+# Jalankan development server
 ionic serve
+
+# Atau dengan port tertentu
+ionic serve --port 8100
 ```
 
-> 🎉 **Selamat!** Browser akan terbuka di `http://localhost:8100` dan kamu akan melihat halaman Ionic pertamamu!
+---
 
-### 📁 Struktur Project
+## 2. Struktur Folder
 
+### 2.1 Struktur Project Ionic
 ```
-MyTodoApp/
+TodoApp/
 ├── src/
-│   ├── app/
-│   │   ├── home/           # Halaman utama kita
-│   │   ├── app.module.ts   # Module utama
-│   │   └── app.component.* # Component utama
-│   ├── assets/             # Gambar, icon, dll
-│   ├── theme/              # File styling
-│   └── index.html          # File HTML utama
-├── capacitor.config.ts     # Config untuk mobile
-├── ionic.config.json       # Config Ionic
-└── package.json           # Dependencies
+│   ├── components/          # Komponen reusable
+│   ├── pages/              # Halaman aplikasi
+│   ├── hooks/              # Custom React hooks
+│   ├── services/           # API services
+│   ├── theme/              # CSS variables dan styling
+│   ├── types/              # TypeScript interfaces
+│   ├── App.tsx             # Root component
+│   └── index.tsx           # Entry point
+├── public/                 # Static assets
+├── capacitor.config.ts     # Capacitor configuration
+├── ionic.config.json       # Ionic configuration
+└── package.json            # Dependencies
 ```
 
-### 🎨 Langkah 2: Buat Interface To-Do
-
-Buka file `src/app/home/home.page.html` dan ganti semua isinya dengan:
-
-```html
-<ion-header [translucent]="true">
-  <ion-toolbar color="primary">
-    <ion-title>
-      📝 My To-Do List
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <!-- Form untuk tambah task -->
-  <div class="add-task-section">
-    <ion-item>
-      <ion-input 
-        [(ngModel)]="newTask" 
-        placeholder="Tulis task baru di sini..."
-        (keyup.enter)="addTask()"
-        clearInput="true">
-      </ion-input>
-      <ion-button 
-        fill="clear" 
-        slot="end" 
-        (click)="addTask()"
-        [disabled]="!newTask?.trim()">
-        <ion-icon name="add-circle"></ion-icon>
-      </ion-button>
-    </ion-item>
-  </div>
-
-  <!-- Daftar task -->
-  <ion-list>
-    <ion-item-sliding *ngFor="let task of tasks; let i = index">
-      <ion-item>
-        <ion-checkbox 
-          slot="start" 
-          [(ngModel)]="task.completed"
-          (ionChange)="toggleTask(i)">
-        </ion-checkbox>
-        
-        <ion-label [class.completed]="task.completed">
-          <h2>{{ task.text }}</h2>
-          <p>{{ task.createdAt | date:'short' }}</p>
-        </ion-label>
-        
-        <ion-chip *ngIf="task.completed" color="success">
-          <ion-icon name="checkmark"></ion-icon>
-          <ion-label>Selesai</ion-label>
-        </ion-chip>
-      </ion-item>
-      
-      <!-- Swipe untuk hapus -->
-      <ion-item-options slot="end">
-        <ion-item-option color="danger" (click)="deleteTask(i)">
-          <ion-icon name="trash"></ion-icon>
-          Hapus
-        </ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
-  </ion-list>
-
-  <!-- Kalau belum ada task -->
-  <div *ngIf="tasks.length === 0" class="empty-state">
-    <ion-icon name="clipboard-outline" size="large"></ion-icon>
-    <h2>Belum ada task</h2>
-    <p>Tambahkan task pertama kamu di atas! 👆</p>
-  </div>
-
-  <!-- Summary -->
-  <div class="task-summary" *ngIf="tasks.length > 0">
-    <ion-chip color="primary">
-      <ion-icon name="stats-chart"></ion-icon>
-      <ion-label>{{ getCompletedCount() }} / {{ tasks.length }} selesai</ion-label>
-    </ion-chip>
-    
-    <ion-progress-bar 
-      [value]="getCompletedCount() / tasks.length"
-      color="success">
-    </ion-progress-bar>
-  </div>
-</ion-content>
+### 2.2 File Structure untuk Todo App
 ```
-
-### 💻 Langkah 3: Logic Aplikasi
-
-Sekarang edit file `src/app/home/home.page.ts`:
-
-```typescript
-import { Component } from '@angular/core';
-
-// Interface untuk struktur data task
-interface Task {
-  text: string;
-  completed: boolean;
-  createdAt: Date;
-}
-
-@Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
-})
-export class HomePage {
-  newTask: string = '';
-  tasks: Task[] = [];
-
-  constructor() {
-    // Load data saat aplikasi dimulai
-    this.loadTasks();
-  }
-
-  // Fungsi untuk tambah task baru
-  addTask() {
-    if (this.newTask && this.newTask.trim()) {
-      const task: Task = {
-        text: this.newTask.trim(),
-        completed: false,
-        createdAt: new Date()
-      };
-      
-      // Tambah di paling atas
-      this.tasks.unshift(task);
-      this.newTask = ''; // Clear input
-      this.saveTasks(); // Simpan ke storage
-      
-      console.log('Task baru ditambahkan:', task.text);
-    }
-  }
-
-  // Fungsi untuk toggle status task (selesai/belum)
-  toggleTask(index: number) {
-    if (this.tasks[index]) {
-      this.tasks[index].completed = !this.tasks[index].completed;
-      this.saveTasks();
-      
-      const status = this.tasks[index].completed ? 'selesai' : 'belum selesai';
-      console.log(`Task "${this.tasks[index].text}" diubah jadi ${status}`);
-    }
-  }
-
-  // Fungsi untuk hapus task
-  deleteTask(index: number) {
-    const deletedTask = this.tasks[index];
-    this.tasks.splice(index, 1);
-    this.saveTasks();
-    
-    console.log('Task dihapus:', deletedTask.text);
-  }
-
-  // Hitung berapa task yang sudah selesai
-  getCompletedCount(): number {
-    return this.tasks.filter(task => task.completed).length;
-  }
-
-  // Simpan data ke localStorage
-  private saveTasks() {
-    localStorage.setItem('todoTasks', JSON.stringify(this.tasks));
-  }
-
-  // Load data dari localStorage
-  private loadTasks() {
-    const saved = localStorage.getItem('todoTasks');
-    if (saved) {
-      this.tasks = JSON.parse(saved);
-      // Convert string date kembali ke Date object
-      this.tasks.forEach(task => {
-        task.createdAt = new Date(task.createdAt);
-      });
-      
-      console.log('Data dimuat:', this.tasks.length, 'tasks');
-    }
-  }
-}
-```
-
-### 🎨 Langkah 4: Styling yang Menarik
-
-Edit file `src/app/home/home.page.scss`:
-
-```scss
-// Styling untuk section tambah task
-.add-task-section {
-  padding: 16px;
-  background: var(--ion-color-light);
-  
-  ion-item {
-    --background: white;
-    --border-radius: 12px;
-    --border-color: var(--ion-color-primary);
-    --border-style: solid;
-    --border-width: 2px;
-    margin-bottom: 8px;
-    
-    ion-input {
-      font-size: 16px;
-    }
-    
-    ion-button {
-      margin: 0;
-      
-      ion-icon {
-        font-size: 24px;
-      }
-    }
-  }
-}
-
-// Styling untuk task yang sudah selesai
-.completed {
-  text-decoration: line-through;
-  opacity: 0.6;
-  color: var(--ion-color-medium);
-}
-
-// Styling untuk empty state
-.empty-state {
-  text-align: center;
-  padding: 80px 20px;
-  color: var(--ion-color-medium);
-  
-  ion-icon {
-    margin-bottom: 24px;
-    color: var(--ion-color-light);
-  }
-  
-  h2 {
-    font-size: 1.5rem;
-    margin: 16px 0 8px 0;
-    color: var(--ion-color-dark);
-  }
-  
-  p {
-    font-size: 1rem;
-    line-height: 1.5;
-  }
-}
-
-// Styling untuk summary
-.task-summary {
-  padding: 16px;
-  text-align: center;
-  background: var(--ion-color-light);
-  margin-top: 16px;
-  
-  ion-chip {
-    margin-bottom: 12px;
-  }
-  
-  ion-progress-bar {
-    height: 8px;
-    border-radius: 4px;
-  }
-}
-
-// Animasi untuk list items
-ion-item-sliding {
-  transition: all 0.3s ease;
-  
-  &:hover {
-    --background: var(--ion-color-light);
-  }
-}
-
-// Styling untuk checkbox
-ion-checkbox {
-  --size: 20px;
-  --checkmark-color: white;
-  --border-radius: 4px;
-  margin-right: 12px;
-}
-```
-
-### 🏃‍♂️ Langkah 5: Testing Aplikasi
-
-```bash
-# Pastikan server masih jalan
-ionic serve
-```
-
-Sekarang coba:
-
-1. **Tambah task baru** - ketik dan tekan Enter atau klik tombol +
-2. **Mark task selesai** - klik checkbox
-3. **Hapus task** - swipe ke kiri dan klik "Hapus"
-4. **Reload halaman** - data tetap tersimpan!
-
-> 🎉 **Congratulations!** Kamu sudah berhasil membuat aplikasi To-Do List pertama dengan Ionic!
-
-### 🔧 Troubleshooting
-
-**Problem: `ngModel` tidak dikenali**
-
-Tambahkan `FormsModule` ke `src/app/home/home.module.ts`:
-
-```typescript
-import { FormsModule } from '@angular/forms';
-
-@NgModule({
-  imports: [
-    CommonModule,
-    FormsModule, // Tambahkan ini
-    IonicModule,
-    HomePageRoutingModule
-  ],
-  // ...
-})
-```
-
-**Problem: Ionic serve tidak jalan**
-
-```bash
-# Kill process yang ada
-npx kill-port 8100
-
-# Coba lagi
-ionic serve
+src/
+├── components/
+│   ├── TaskItem.tsx        # Komponen individual task
+│   ├── TaskModal.tsx       # Modal untuk add/edit task
+│   ├── SearchBar.tsx       # Komponen search
+│   └── FilterTabs.tsx      # Tab filter
+├── pages/
+│   └── TodoPage.tsx        # Main page
+├── hooks/
+│   ├── useTasks.tsx        # Hook untuk task management
+│   └── useLocalStorage.tsx # Hook untuk local storage
+├── types/
+│   └── Task.ts             # Interface Task
+└── theme/
+    └── variables.css       # Custom CSS variables
 ```
 
 ---
 
-# Bab 2: Navigasi dan Deployment
+## 3. Ionic Components
 
-Sekarang kita akan upgrade aplikasi To-Do menjadi multi-page app dengan navigasi, dark mode, dan siap di-deploy ke device!
+### 3.1 Core Components yang Digunakan
 
-## 🧭 Membuat Multi-Page App
+#### IonApp
+```tsx
+import { IonApp, setupIonicReact } from '@ionic/react';
 
-### Langkah 1: Generate Pages Baru
+// Setup Ionic
+setupIonicReact();
 
-```bash
-# Generate page untuk completed tasks
-ionic generate page pages/completed-tasks
-
-# Generate page untuk settings
-ionic generate page pages/settings
-
-# Generate page untuk about
-ionic generate page pages/about
+const App: React.FC = () => (
+  <IonApp>
+    {/* Content goes here */}
+  </IonApp>
+);
 ```
 
-> 📁 **File baru akan dibuat** di folder `src/app/pages/`
+#### IonPage Structure
+```tsx
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/react';
 
-### Langkah 2: Setup Tab Navigation
-
-Kita akan ubah aplikasi menjadi tab-based navigation. Edit `src/app/app-routing.module.ts`:
-
-```typescript
-import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-
-const routes: Routes = [
-  {
-    path: '',
-    redirectTo: '/tabs/home',
-    pathMatch: 'full'
-  },
-  {
-    path: 'tabs',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
-  }
-];
-
-@NgModule({
-  imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
-  ],
-  exports: [RouterModule]
-})
-export class AppRoutingModule {}
+const TodoPage: React.FC = () => (
+  <IonPage>
+    <IonHeader>
+      <IonToolbar color="primary">
+        <IonTitle>My Todo List</IonTitle>
+      </IonToolbar>
+    </IonHeader>
+    <IonContent>
+      {/* Page content */}
+    </IonContent>
+  </IonPage>
+);
 ```
 
-### Langkah 3: Buat Tab Module
+#### IonList & IonItem
+```tsx
+import { IonList, IonItem, IonLabel, IonCheckbox } from '@ionic/react';
 
-```bash
-ionic generate page tabs
+<IonList>
+  <IonItem>
+    <IonCheckbox slot="start" />
+    <IonLabel>
+      <h2>Task Title</h2>
+      <p>Task Description</p>
+    </IonLabel>
+  </IonItem>
+</IonList>
 ```
 
-Edit `src/app/tabs/tabs-routing.module.ts`:
+### 3.2 Navigation Components
+```tsx
+import { IonSegment, IonSegmentButton, IonLabel } from '@ionic/react';
 
-```typescript
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { TabsPage } from './tabs.page';
-
-const routes: Routes = [
-  {
-    path: '',
-    component: TabsPage,
-    children: [
-      {
-        path: 'home',
-        loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
-      },
-      {
-        path: 'completed-tasks',
-        loadChildren: () => import('../pages/completed-tasks/completed-tasks.module').then(m => m.CompletedTasksPageModule)
-      },
-      {
-        path: 'settings',
-        loadChildren: () => import('../pages/settings/settings.module').then(m => m.SettingsPageModule)
-      },
-      {
-        path: '',
-        redirectTo: '/tabs/home',
-        pathMatch: 'full'
-      }
-    ]
-  }
-];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
-})
-export class TabsPageRoutingModule {}
-```
-
-### Langkah 4: Tab Navigation UI
-
-Edit `src/app/tabs/tabs.page.html`:
-
-```html
-<ion-tabs>
-  <ion-tab-bar slot="bottom" color="primary">
-    <ion-tab-button tab="home">
-      <ion-icon name="list"></ion-icon>
-      <ion-label>All Tasks</ion-label>
-      <ion-badge *ngIf="getTotalTasks() > 0" color="danger">{{ getTotalTasks() }}</ion-badge>
-    </ion-tab-button>
-    
-    <ion-tab-button tab="completed-tasks">
-      <ion-icon name="checkmark-done"></ion-icon>
-      <ion-label>Completed</ion-label>
-      <ion-badge *ngIf="getCompletedTasks() > 0" color="success">{{ getCompletedTasks() }}</ion-badge>
-    </ion-tab-button>
-    
-    <ion-tab-button tab="settings">
-      <ion-icon name="settings"></ion-icon>
-      <ion-label>Settings</ion-label>
-    </ion-tab-button>
-  </ion-tab-bar>
-</ion-tabs>
-```
-
-Logic untuk tabs (`src/app/tabs/tabs.page.ts`):
-
-```typescript
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-tabs',
-  templateUrl: 'tabs.page.html',
-  styleUrls: ['tabs.page.scss']
-})
-export class TabsPage {
-  
-  getTotalTasks(): number {
-    const tasks = JSON.parse(localStorage.getItem('todoTasks') || '[]');
-    return tasks.filter((task: any) => !task.completed).length;
-  }
-  
-  getCompletedTasks(): number {
-    const tasks = JSON.parse(localStorage.getItem('todoTasks') || '[]');
-    return tasks.filter((task: any) => task.completed).length;
-  }
-}
-```
-
-### 🎯 Langkah 5: Completed Tasks Page
-
-Edit `src/app/pages/completed-tasks/completed-tasks.page.html`:
-
-```html
-<ion-header [translucent]="true">
-  <ion-toolbar color="success">
-    <ion-title>
-      ✅ Completed Tasks
-    </ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="clearCompleted()" [disabled]="completedTasks.length === 0">
-        <ion-icon name="trash"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <!-- List completed tasks -->
-  <ion-list *ngIf="completedTasks.length > 0">
-    <ion-item *ngFor="let task of completedTasks">
-      <ion-avatar slot="start">
-        <ion-icon name="checkmark-circle" color="success" size="large"></ion-icon>
-      </ion-avatar>
-      
-      <ion-label>
-        <h2>{{ task.text }}</h2>
-        <p>Completed: {{ task.completedAt | date:'medium' }}</p>
-        <p>Created: {{ task.createdAt | date:'short' }}</p>
-      </ion-label>
-      
-      <ion-chip color="success" slot="end">
-        <ion-icon name="trophy"></ion-icon>
-        <ion-label>Done</ion-label>
-      </ion-chip>
-    </ion-item>
-  </ion-list>
-
-  <!-- Empty state -->
-  <div *ngIf="completedTasks.length === 0" class="empty-state">
-    <ion-icon name="trophy-outline" size="large"></ion-icon>
-    <h2>No completed tasks yet</h2>
-    <p>Complete some tasks to see your achievements here! 🏆</p>
-    <ion-button routerLink="/tabs/home" fill="outline">
-      <ion-icon name="add" slot="start"></ion-icon>
-      Add Some Tasks
-    </ion-button>
-  </div>
-
-  <!-- Stats -->
-  <div *ngIf="completedTasks.length > 0" class="stats-section">
-    <h3>📊 Your Stats</h3>
-    <ion-grid>
-      <ion-row>
-        <ion-col size="6">
-          <div class="stat-card">
-            <h4>{{ completedTasks.length }}</h4>
-            <p>Tasks Completed</p>
-          </div>
-        </ion-col>
-        <ion-col size="6">
-          <div class="stat-card">
-            <h4>{{ getCompletionRate() }}%</h4>
-            <p>Completion Rate</p>
-          </div>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>
-</ion-content>
-```
-
-Logic untuk completed tasks (`completed-tasks.page.ts`):
-
-```typescript
-import { Component, OnInit } from '@angular/core';
-import { AlertController, ToastController } from '@ionic/angular';
-
-interface Task {
-  text: string;
-  completed: boolean;
-  createdAt: Date;
-  completedAt?: Date;
-}
-
-@Component({
-  selector: 'app-completed-tasks',
-  templateUrl: './completed-tasks.page.html',
-  styleUrls: ['./completed-tasks.page.scss'],
-})
-export class CompletedTasksPage implements OnInit {
-  completedTasks: Task[] = [];
-  allTasks: Task[] = [];
-
-  constructor(
-    private alertController: AlertController,
-    private toastController: ToastController
-  ) {}
-
-  ngOnInit() {
-    this.loadTasks();
-  }
-
-  ionViewWillEnter() {
-    this.loadTasks();
-  }
-
-  loadTasks() {
-    const saved = localStorage.getItem('todoTasks');
-    if (saved) {
-      this.allTasks = JSON.parse(saved);
-      this.completedTasks = this.allTasks
-        .filter(task => task.completed)
-        .map(task => ({
-          ...task,
-          createdAt: new Date(task.createdAt),
-          completedAt: task.completedAt ? new Date(task.completedAt) : new Date()
-        }));
-    }
-  }
-
-  async clearCompleted() {
-    const alert = await this.alertController.create({
-      header: 'Clear Completed Tasks',
-      message: `Are you sure you want to delete ${this.completedTasks.length} completed tasks?`,
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel'
-        },
-        {
-          text: 'Delete',
-          role: 'destructive',
-          handler: () => {
-            this.performClearCompleted();
-          }
-        }
-      ]
-    });
-
-    await alert.present();
-  }
-
-  async performClearCompleted() {
-    const remainingTasks = this.allTasks.filter(task => !task.completed);
-    localStorage.setItem('todoTasks', JSON.stringify(remainingTasks));
-    this.loadTasks();
-
-    const toast = await this.toastController.create({
-      message: `${this.completedTasks.length} completed tasks deleted`,
-      duration: 2000,
-      color: 'success'
-    });
-    toast.present();
-  }
-
-  getCompletionRate(): number {
-    if (this.allTasks.length === 0) return 0;
-    return Math.round((this.completedTasks.length / this.allTasks.length) * 100);
-  }
-}
+<IonSegment value={filter} onIonChange={(e) => setFilter(e.detail.value)}>
+  <IonSegmentButton value="all">
+    <IonLabel>All</IonLabel>
+  </IonSegmentButton>
+  <IonSegmentButton value="pending">
+    <IonLabel>Pending</IonLabel>
+  </IonSegmentButton>
+</IonSegment>
 ```
 
 ---
 
-## 🎨 Styling dan Theming
+## 4. State Management
 
-### Langkah 1: Settings Page dengan Dark Mode
+### 4.1 useState untuk Local State
+```tsx
+import React, { useState } from 'react';
 
-Edit `src/app/pages/settings/settings.page.html`:
+interface Task {
+  id: string;
+  title: string;
+  description: string;
+  completed: boolean;
+  category: string;
+  priority: 'low' | 'medium' | 'high';
+  dueDate: string;
+  createdAt: string;
+  favorite: boolean;
+}
 
-```html
-<ion-header [translucent]="true">
-  <ion-toolbar color="tertiary">
-    <ion-title>
-      ⚙️ Settings
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-list>
-    <!-- Theme Section -->
-    <ion-list-header>
-      <ion-label>🎨 Appearance</ion-label>
-    </ion-list-header>
-    
-    <ion-item>
-      <ion-icon name="moon" slot="start"></ion-icon>
-      <ion-label>
-        <h2>Dark Mode</h2>
-        <p>Switch between light and dark theme</p>
-      </ion-label>
-      <ion-toggle 
-        [(ngModel)]="darkMode" 
-        (ionChange)="toggleDarkMode()"
-        color="dark">
-      </ion-toggle>
-    </ion-item>
-
-    <!-- Notifications Section -->
-    <ion-list-header>
-      <ion-label>🔔 Notifications</ion-label>
-    </ion-list-header>
-    
-    <ion-item>
-      <ion-icon name="notifications" slot="start"></ion-icon>
-      <ion-label>
-        <h2>Task Reminders</h2>
-        <p>Get reminded about your tasks</p>
-      </ion-label>
-      <ion-toggle [(ngModel)]="notifications" color="primary"></ion-toggle>
-    </ion-item>
-
-    <!-- Data Section -->
-    <ion-list-header>
-      <ion-label>💾 Data Management</ion-label>
-    </ion-list-header>
-    
-    <ion-item button (click)="exportData()">
-      <ion-icon name="download" slot="start" color="primary"></ion-icon>
-      <ion-label>
-        <h2>Export Tasks</h2>
-        <p>Download your tasks as JSON file</p>
-      </ion-label>
-      <ion-icon name="chevron-forward" slot="end"></ion-icon>
-    </ion-item>
-
-    <ion-item button (click)="clearAllData()">
-      <ion-icon name="trash" slot="start" color="danger"></ion-icon>
-      <ion-label>
-        <h2>Clear All Data</h2>
-        <p>Delete all tasks and settings</p>
-      </ion-label>
-      <ion-icon name="chevron-forward" slot="end"></ion-icon>
-    </ion-item>
-
-    <!-- About Section -->
-    <ion-list-header>
-      <ion-label>ℹ️ About</ion-label>
-    </ion-list-header>
-    
-    <ion-item button routerLink="/about">
-      <ion-icon name="information-circle" slot="start" color="tertiary"></ion-icon>
-      <ion-label>
-        <h2>About This App</h2>
-        <p>Version 1.0.0 - Learn more</p>
-      </ion-label>
-      <ion-icon name="chevron-forward" slot="end"></ion-icon>
-    </ion-item>
-  </ion-list>
-
-  <!-- App Info -->
-  <div class="app-info">
-    <p>Made with ❤️ using Ionic Framework</p>
-    <p>Version 1.0.0</p>
-  </div>
-</ion-content>
+const TodoPage: React.FC = () => {
+  // State untuk tasks
+  const [tasks, setTasks] = useState<Task[]>([]);
+  
+  // State untuk UI
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingTask, setEditingTask] = useState<Task | null>(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filter, setFilter] = useState('all');
+  
+  // State untuk form
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [category, setCategory] = useState('personal');
+  const [priority, setPriority] = useState<'low' | 'medium' | 'high'>('medium');
+  const [dueDate, setDueDate] = useState('');
+  
+  // ... rest of component
+};
 ```
 
-Logic untuk settings (`settings.page.ts`):
+### 4.2 Custom Hook untuk Tasks
+```tsx
+// hooks/useTasks.tsx
+import { useState, useEffect } from 'react';
+import { Task } from '../types/Task';
 
-```typescript
-import { Component, OnInit } from '@angular/core';
-import { AlertController, ToastController } from '@ionic/angular';
+export const useTasks = () => {
+  const [tasks, setTasks] = useState<Task[]>([]);
 
-@Component({
-  selector: 'app-settings',
-  templateUrl: './settings.page.html',
-  styleUrls: ['./settings.page.scss'],
-})
-export class SettingsPage implements OnInit {
-  darkMode: boolean = false;
-  notifications: boolean = true;
+  // Load tasks from localStorage
+  useEffect(() => {
+    const savedTasks = localStorage.getItem('ionic-todo-tasks');
+    if (savedTasks) {
+      setTasks(JSON.parse(savedTasks));
+    }
+  }, []);
 
-  constructor(
-    private alertController: AlertController,
-    private toastController: ToastController
-  ) {}
+  // Save tasks to localStorage
+  useEffect(() => {
+    localStorage.setItem('ionic-todo-tasks', JSON.stringify(tasks));
+  }, [tasks]);
 
-  ngOnInit() {
-    // Load saved settings
-    const savedTheme = localStorage.getItem('darkMode');
-    this.darkMode = savedTheme === 'true';
-    this.applyTheme();
+  // CRUD operations
+  const addTask = (taskData: Omit<Task, 'id' | 'createdAt' | 'completed' | 'favorite'>) => {
+    const newTask: Task = {
+      id: Date.now().toString(),
+      ...taskData,
+      completed: false,
+      createdAt: new Date().toISOString(),
+      favorite: false,
+    };
+    setTasks(prev => [...prev, newTask]);
+  };
 
-    const savedNotifications = localStorage.getItem('notifications');
-    this.notifications = savedNotifications !== 'false';
-  }
+  const updateTask = (id: string, updates: Partial<Task>) => {
+    setTasks(prev => prev.map(task => 
+      task.id === id ? { ...task, ...updates } : task
+    ));
+  };
 
-  toggleDarkMode() {
-    localStorage.setItem('darkMode', this.darkMode.toString());
-    this.applyTheme();
-    this.showToast(`Dark mode ${this.darkMode ? 'enabled' : 'disabled'}`);
-  }
+  const deleteTask = (id: string) => {
+    setTasks(prev => prev.filter(task => task.id !== id));
+  };
 
-  private applyTheme() {
-    document.body.classList.toggle('dark', this.darkMode);
-  }
+  const toggleTask = (id: string) => {
+    updateTask(id, { completed: !tasks.find(t => t.id === id)?.completed });
+  };
 
-  async exportData() {
-    const tasks = localStorage.getItem('todoTasks');
-    if (tasks) {
-      const dataStr = JSON.stringify(JSON.parse(tasks), null, 2);
-      const dataBlob = new Blob([dataStr], {type: 'application/json'});
-      
-      // Create download link
-      const url = URL.createObjectURL(dataBlob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = 'my-tasks.json';
-      link.click();
-      
-      this.showToast('Tasks exported successfully!');
+  const toggleFavorite = (id: string) => {
+    updateTask(id, { favorite: !tasks.find(t => t.id === id)?.favorite });
+  };
+
+  return {
+    tasks,
+    addTask,
+    updateTask,
+    deleteTask,
+    toggleTask,
+    toggleFavorite
+  };
+};
+```
+
+---
+
+## 5. Local Storage
+
+### 5.1 Custom Hook untuk Local Storage
+```tsx
+// hooks/useLocalStorage.tsx
+import { useState, useEffect } from 'react';
+
+export function useLocalStorage<T>(key: string, initialValue: T) {
+  // Get value from localStorage or use initial value
+  const [storedValue, setStoredValue] = useState<T>(() => {
+    try {
+      const item = window.localStorage.getItem(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch (error) {
+      console.error(`Error reading localStorage key "${key}":`, error);
+      return initialValue;
+    }
+  });
+
+  // Function to set value
+  const setValue = (value: T | ((val: T) => T)) => {
+    try {
+      // Allow value to be a function so we have the same API as useState
+      const valueToStore = value instanceof Function ? value(storedValue) : value;
+      setStoredValue(valueToStore);
+      window.localStorage.setItem(key, JSON.stringify(valueToStore));
+    } catch (error) {
+      console.error(`Error setting localStorage key "${key}":`, error);
+    }
+  };
+
+  return [storedValue, setValue] as const;
+}
+
+// Penggunaan:
+const [tasks, setTasks] = useLocalStorage<Task[]>('ionic-todo-tasks', []);
+```
+
+### 5.2 Implementasi Backup & Restore
+```tsx
+// Export data ke JSON
+const exportTasks = () => {
+  const dataStr = JSON.stringify(tasks, null, 2);
+  const dataBlob = new Blob([dataStr], { type: 'application/json' });
+  const url = URL.createObjectURL(dataBlob);
+  
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `todo-backup-${new Date().toISOString().split('T')[0]}.json`;
+  link.click();
+  
+  URL.revokeObjectURL(url);
+};
+
+// Import data dari JSON
+const importTasks = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const file = event.target.files?.[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const importedTasks = JSON.parse(e.target?.result as string);
+      setTasks(importedTasks);
+    } catch (error) {
+      alert('Error importing file');
+    }
+  };
+  reader.readAsText(file);
+};
+```
+
+---
+
+## 6. UI Components
+
+### 6.1 Task Item Component
+```tsx
+// components/TaskItem.tsx
+import React from 'react';
+import {
+  IonItem,
+  IonLabel,
+  IonCheckbox,
+  IonButton,
+  IonIcon,
+  IonChip,
+  IonItemSliding,
+  IonItemOptions,
+  IonItemOption
+} from '@ionic/react';
+import { create, trash, star, starOutline } from 'ionicons/icons';
+import { Task } from '../types/Task';
+
+interface TaskItemProps {
+  task: Task;
+  onToggle: (id: string) => void;
+  onEdit: (task: Task) => void;
+  onDelete: (id: string) => void;
+  onToggleFavorite: (id: string) => void;
+}
+
+export const TaskItem: React.FC<TaskItemProps> = ({
+  task,
+  onToggle,
+  onEdit,
+  onDelete,
+  onToggleFavorite
+}) => {
+  const getPriorityColor = (priority: string) => {
+    switch (priority) {
+      case 'high': return 'danger';
+      case 'medium': return 'warning';
+      case 'low': return 'success';
+      default: return 'medium';
+    }
+  };
+
+  const formatDate = (dateString: string) => {
+    if (!dateString) return '';
+    return new Date(dateString).toLocaleDateString('id-ID');
+  };
+
+  const isOverdue = () => {
+    if (!task.dueDate || task.completed) return false;
+    return new Date(task.dueDate) < new Date();
+  };
+
+  return (
+    <IonItemSliding>
+      <IonItem button onClick={() => onToggle(task.id)}>
+        <IonCheckbox
+          checked={task.completed}
+          onIonChange={() => onToggle(task.id)}
+          slot="start"
+        />
+        <IonLabel className="ion-text-wrap">
+          <h2 style={{
+            textDecoration: task.completed ? 'line-through' : 'none',
+            opacity: task.completed ? 0.6 : 1
+          }}>
+            {task.title}
+            {task.favorite && (
+              <IonIcon
+                icon={star}
+                color="warning"
+                style={{ marginLeft: '8px' }}
+              />
+            )}
+          </h2>
+          {task.description && (
+            <p style={{ opacity: task.completed ? 0.6 : 0.8 }}>
+              {task.description}
+            </p>
+          )}
+          <div style={{ display: 'flex', gap: '8px', marginTop: '4px' }}>
+            <IonChip color="primary" size="small">
+              <IonLabel>{task.category}</IonLabel>
+            </IonChip>
+            <IonChip color={getPriorityColor(task.priority)} size="small">
+              <IonLabel>{task.priority}</IonLabel>
+            </IonChip>
+            {task.dueDate && (
+              <IonChip color={isOverdue() ? 'danger' : 'medium'} size="small">
+                <IonLabel>{formatDate(task.dueDate)}</IonLabel>
+              </IonChip>
+            )}
+          </div>
+        </IonLabel>
+        <IonButton
+          fill="clear"
+          color={task.favorite ? 'warning' : 'medium'}
+          onClick={(e) => {
+            e.stopPropagation();
+            onToggleFavorite(task.id);
+          }}
+        >
+          <IonIcon icon={task.favorite ? star : starOutline} />
+        </IonButton>
+      </IonItem>
+
+      <IonItemOptions side="end">
+        <IonItemOption color="primary" onClick={() => onEdit(task)}>
+          <IonIcon icon={create} />
+          Edit
+        </IonItemOption>
+        <IonItemOption color="danger" onClick={() => onDelete(task.id)}>
+          <IonIcon icon={trash} />
+          Delete
+        </IonItemOption>
+      </IonItemOptions>
+    </IonItemSliding>
+  );
+};
+```
+
+### 6.2 Task Modal Component
+```tsx
+// components/TaskModal.tsx
+import React, { useState, useEffect } from 'react';
+import {
+  IonModal,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonItem,
+  IonLabel,
+  IonInput,
+  IonTextarea,
+  IonSelect,
+  IonSelectOption,
+  IonDatetime,
+  IonButton,
+  IonButtons,
+  IonIcon
+} from '@ionic/react';
+import { close, checkmark } from 'ionicons/icons';
+import { Task } from '../types/Task';
+
+interface TaskModalProps {
+  isOpen: boolean;
+  task?: Task | null;
+  onSave: (taskData: any) => void;
+  onClose: () => void;
+}
+
+export const TaskModal: React.FC<TaskModalProps> = ({
+  isOpen,
+  task,
+  onSave,
+  onClose
+}) => {
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [category, setCategory] = useState('personal');
+  const [priority, setPriority] = useState<'low' | 'medium' | 'high'>('medium');
+  const [dueDate, setDueDate] = useState('');
+
+  const categories = ['personal', 'work', 'shopping', 'health', 'study'];
+
+  useEffect(() => {
+    if (task) {
+      setTitle(task.title);
+      setDescription(task.description);
+      setCategory(task.category);
+      setPriority(task.priority);
+      setDueDate(task.dueDate);
     } else {
-      this.showToast('No tasks to export');
+      resetForm();
     }
-  }
+  }, [task]);
 
-  async clearAllData() {
-    const alert = await this.alertController.create({
-      header: 'Clear All Data',
-      message: 'This will delete all your tasks and settings. This action cannot be undone.',
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel'
-        },
-        {
-          text: 'Delete Everything',
-          role: 'destructive',
-          handler: () => {
-            localStorage.clear();
-            this.showToast('All data cleared');
-          }
-        }
-      ]
+  const resetForm = () => {
+    setTitle('');
+    setDescription('');
+    setCategory('personal');
+    setPriority('medium');
+    setDueDate('');
+  };
+
+  const handleSave = () => {
+    if (!title.trim()) return;
+
+    onSave({
+      title: title.trim(),
+      description: description.trim(),
+      category,
+      priority,
+      dueDate,
     });
 
-    await alert.present();
-  }
+    resetForm();
+    onClose();
+  };
 
-  private async showToast(message: string) {
-    const toast = await this.toastController.create({
-      message,
-      duration: 2000,
-      position: 'bottom'
-    });
-    toast.present();
-  }
-}
+  const handleClose = () => {
+    resetForm();
+    onClose();
+  };
+
+  return (
+    <IonModal isOpen={isOpen} onDidDismiss={handleClose}>
+      <IonHeader>
+        <IonToolbar>
+          <IonTitle>{task ? 'Edit Task' : 'Add New Task'}</IonTitle>
+          <IonButtons slot="end">
+            <IonButton onClick={handleClose}>
+              <IonIcon icon={close} />
+            </IonButton>
+          </IonButtons>
+        </IonToolbar>
+      </IonHeader>
+      
+      <IonContent className="ion-padding">
+        <IonItem>
+          <IonLabel position="stacked">Title *</IonLabel>
+          <IonInput
+            value={title}
+            onIonInput={(e) => setTitle(e.detail.value!)}
+            placeholder="Enter task title"
+            required
+          />
+        </IonItem>
+
+        <IonItem>
+          <IonLabel position="stacked">Description</IonLabel>
+          <IonTextarea
+            value={description}
+            onIonInput={(e) => setDescription(e.detail.value!)}
+            placeholder="Enter task description"
+            rows={3}
+          />
+        </IonItem>
+
+        <IonItem>
+          <IonLabel position="stacked">Category</IonLabel>
+          <IonSelect
+            value={category}
+            onSelectionChange={(e) => setCategory(e.detail.value)}
+          >
+            {categories.map(cat => (
+              <IonSelectOption key={cat} value={cat}>
+                {cat.charAt(0).toUpperCase() + cat.slice(1)}
+              </IonSelectOption>
+            ))}
+          </IonSelect>
+        </IonItem>
+
+        <IonItem>
+          <IonLabel position="stacked">Priority</IonLabel>
+          <IonSelect
+            value={priority}
+            onSelectionChange={(e) => setPriority(e.detail.value)}
+          >
+            <IonSelectOption value="low">Low</IonSelectOption>
+            <IonSelectOption value="medium">Medium</IonSelectOption>
+            <IonSelectOption value="high">High</IonSelectOption>
+          </IonSelect>
+        </IonItem>
+
+        <IonItem>
+          <IonLabel position="stacked">Due Date</IonLabel>
+          <IonDatetime
+            value={dueDate}
+            onIonChange={(e) => setDueDate(e.detail.value as string)}
+            presentation="date"
+            min={new Date().toISOString()}
+          />
+        </IonItem>
+
+        <IonButton
+          expand="block"
+          onClick={handleSave}
+          disabled={!title.trim()}
+          className="ion-margin-top"
+        >
+          <IonIcon icon={checkmark} slot="start" />
+          {task ? 'Update Task' : 'Add Task'}
+        </IonButton>
+      </IonContent>
+    </IonModal>
+  );
+};
 ```
 
-### Langkah 2: Custom Theme Colors
+---
 
-Edit `src/theme/variables.scss`:
+## 7. CRUD Operations
 
-```scss
-// Ionic Variables and Theming
-// Custom color palette
+### 7.1 Create (Add Task)
+```tsx
+const addTask = (taskData: Omit<Task, 'id' | 'createdAt' | 'completed' | 'favorite'>) => {
+  const newTask: Task = {
+    id: Date.now().toString(), // Generate unique ID
+    ...taskData,
+    completed: false,
+    createdAt: new Date().toISOString(),
+    favorite: false,
+  };
+  setTasks(prev => [...prev, newTask]);
+};
+```
+
+### 7.2 Read (Get/Filter Tasks)
+```tsx
+const getFilteredTasks = (searchTerm: string, filter: string) => {
+  return tasks.filter(task => {
+    // Search filter
+    const matchesSearch = task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         task.description.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    // Status filter
+    switch (filter) {
+      case 'completed':
+        return matchesSearch && task.completed;
+      case 'pending':
+        return matchesSearch && !task.completed;
+      case 'favorites':
+        return matchesSearch && task.favorite;
+      default:
+        return matchesSearch;
+    }
+  });
+};
+```
+
+### 7.3 Update (Edit Task)
+```tsx
+const updateTask = (id: string, updates: Partial<Task>) => {
+  setTasks(prev => prev.map(task => 
+    task.id === id ? { ...task, ...updates } : task
+  ));
+};
+
+// Usage examples:
+const toggleCompleted = (id: string) => {
+  const task = tasks.find(t => t.id === id);
+  if (task) {
+    updateTask(id, { completed: !task.completed });
+  }
+};
+
+const editTask = (id: string, newData: Partial<Task>) => {
+  updateTask(id, newData);
+};
+```
+
+### 7.4 Delete (Remove Task)
+```tsx
+const deleteTask = (id: string) => {
+  setTasks(prev => prev.filter(task => task.id !== id));
+};
+
+// With confirmation
+const deleteTaskWithConfirm = (id: string) => {
+  const task = tasks.find(t => t.id === id);
+  if (task && window.confirm(`Delete "${task.title}"?`)) {
+    deleteTask(id);
+  }
+};
+```
+
+---
+
+## 8. Filter & Search
+
+### 8.1 Search Implementation
+```tsx
+const [searchTerm, setSearchTerm] = useState('');
+
+// Search component
+<IonSearchbar
+  value={searchTerm}
+  onIonInput={(e) => setSearchTerm(e.detail.value!)}
+  placeholder="Search tasks..."
+  showClearButton="focus"
+  debounce={300} // Delay search untuk performance
+/>
+
+// Filter function
+const searchTasks = (tasks: Task[], searchTerm: string) => {
+  if (!searchTerm.trim()) return tasks;
+  
+  const term = searchTerm.toLowerCase();
+  return tasks.filter(task => 
+    task.title.toLowerCase().includes(term) ||
+    task.description.toLowerCase().includes(term) ||
+    task.category.toLowerCase().includes(term)
+  );
+};
+```
+
+### 8.2 Advanced Filtering
+```tsx
+interface FilterOptions {
+  status: 'all' | 'completed' | 'pending';
+  category: string;
+  priority: string;
+  dateRange: {
+    start: string;
+    end: string;
+  };
+}
+
+const applyFilters = (tasks: Task[], filters: FilterOptions) => {
+  return tasks.filter(task => {
+    // Status filter
+    if (filters.status === 'completed' && !task.completed) return false;
+    if (filters.status === 'pending' && task.completed) return false;
+    
+    // Category filter
+    if (filters.category !== 'all' && task.category !== filters.category) return false;
+    
+    // Priority filter
+    if (filters.priority !== 'all' && task.priority !== filters.priority) return false;
+    
+    // Date range filter
+    if (filters.dateRange.start && task.dueDate) {
+      if (new Date(task.dueDate) < new Date(filters.dateRange.start)) return false;
+    }
+    if (filters.dateRange.end && task.dueDate) {
+      if (new Date(task.dueDate) > new Date(filters.dateRange.end)) return false;
+    }
+    
+    return true;
+  });
+};
+```
+
+### 8.3 Sorting
+```tsx
+type SortOption = 'created' | 'priority' | 'dueDate' | 'alphabetical';
+
+const sortTasks = (tasks: Task[], sortBy: SortOption) => {
+  return [...tasks].sort((a, b) => {
+    switch (sortBy) {
+      case 'priority':
+        const priorityOrder = { high: 3, medium: 2, low: 1 };
+        return priorityOrder[b.priority] - priorityOrder[a.priority];
+        
+      case 'dueDate':
+        if (!a.dueDate && !b.dueDate) return 0;
+        if (!a.dueDate) return 1;
+        if (!b.dueDate) return -1;
+        return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime();
+        
+      case 'alphabetical':
+        return a.title.localeCompare(b.title);
+        
+      default: // created
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    }
+  });
+};
+```
+
+---
+
+## 9. Styling & Theme
+
+### 9.1 CSS Variables (theme/variables.css)
+```css
 :root {
-  /** Primary color - Main brand color **/
+  /* Primary colors */
   --ion-color-primary: #3880ff;
   --ion-color-primary-rgb: 56, 128, 255;
   --ion-color-primary-contrast: #ffffff;
@@ -977,255 +816,252 @@ Edit `src/theme/variables.scss`:
   --ion-color-primary-shade: #3171e0;
   --ion-color-primary-tint: #4c8dff;
 
-  /** Success color - For completed tasks **/
-  --ion-color-success: #2dd36f;
-  --ion-color-success-rgb: 45, 211, 111;
-  --ion-color-success-contrast: #ffffff;
-  --ion-color-success-contrast-rgb: 255, 255, 255;
-  --ion-color-success-shade: #28ba62;
-  --ion-color-success-tint: #42d77d;
+  /* Secondary colors */
+  --ion-color-secondary: #3dc2ff;
+  --ion-color-secondary-rgb: 61, 194, 255;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-contrast-rgb: 255, 255, 255;
+  --ion-color-secondary-shade: #36abe0;
+  --ion-color-secondary-tint: #50c8ff;
 
-  /** Custom task-complete color **/
-  --ion-color-task-complete: #10dc60;
-  --ion-color-task-complete-rgb: 16, 220, 96;
-  --ion-color-task-complete-contrast: #ffffff;
-  --ion-color-task-complete-contrast-rgb: 255, 255, 255;
-  --ion-color-task-complete-shade: #0ec254;
-  --ion-color-task-complete-tint: #28e070;
-
-  // Global styling
-  --ion-font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Roboto', sans-serif;
+  /* Dark theme colors */
+  --ion-color-dark: #222428;
+  --ion-color-dark-rgb: 34, 36, 40;
+  --ion-color-dark-contrast: #ffffff;
+  --ion-color-dark-contrast-rgb: 255, 255, 255;
+  --ion-color-dark-shade: #1e2023;
+  --ion-color-dark-tint: #383a3e;
 }
 
-// Dark theme
-.dark {
-  --ion-color-primary: #428cff;
-  --ion-color-primary-rgb: 66, 140, 255;
-  --ion-color-primary-contrast: #ffffff;
-  --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #3a7be0;
-  --ion-color-primary-tint: #5598ff;
-
-  --ion-background-color: #0d1117;
-  --ion-background-color-rgb: 13, 17, 23;
-
-  --ion-text-color: #ffffff;
-  --ion-text-color-rgb: 255, 255, 255;
-
-  --ion-color-step-50: #1c2128;
-  --ion-color-step-100: #2d333b;
-  --ion-color-step-150: #373e47;
-  --ion-color-step-200: #444c56;
-  --ion-color-step-250: #545d68;
-  --ion-color-step-300: #636e7b;
-  --ion-color-step-350: #7d8590;
-  --ion-color-step-400: #8b949e;
-  --ion-color-step-450: #a2a9b1;
-  --ion-color-step-500: #b1bac4;
-  --ion-color-step-550: #c9d1d9;
-  --ion-color-step-600: #e1e4e8;
-  --ion-color-step-650: #f0f6fc;
-  --ion-color-step-700: #f7f8fa;
-  --ion-color-step-750: #ffffff;
-  --ion-color-step-800: #ffffff;
-  --ion-color-step-850: #ffffff;
-  --ion-color-step-900: #ffffff;
-  --ion-color-step-950: #ffffff;
-
-  --ion-item-background: var(--ion-color-step-100);
-  --ion-card-background: var(--ion-color-step-100);
+/* Custom task priority colors */
+.task-priority-high {
+  --ion-color-base: #ff4961;
+  --ion-color-base-rgb: 255, 73, 97;
+  --ion-color-contrast: #ffffff;
 }
 
-// Custom global styles
-.empty-state {
-  text-align: center;
-  padding: 40px 20px;
-  
-  ion-icon {
-    font-size: 64px;
-    color: var(--ion-color-medium);
-    margin-bottom: 16px;
-  }
-  
-  h2 {
-    color: var(--ion-color-dark);
-    margin: 16px 0 8px 0;
-  }
-  
-  p {
-    color: var(--ion-color-medium);
-    line-height: 1.5;
-  }
+.task-priority-medium {
+  --ion-color-base: #ffce00;
+  --ion-color-base-rgb: 255, 206, 0;
+  --ion-color-contrast: #000000;
 }
 
-.stats-section {
-  padding: 20px;
-  
-  h3 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: var(--ion-color-primary);
-  }
-  
-  .stat-card {
-    background: var(--ion-color-light);
-    padding: 20px;
-    border-radius: 12px;
-    text-align: center;
-    
-    h4 {
-      font-size: 2rem;
-      margin: 0 0 8px 0;
-      color: var(--ion-color-primary);
-    }
-    
-    p {
-      margin: 0;
-      color: var(--ion-color-medium);
-      font-size: 0.9rem;
+.task-priority-low {
+  --ion-color-base: #2dd36f;
+  --ion-color-base-rgb: 45, 211, 111;
+  --ion-color-contrast: #ffffff;
+}
+```
+
+### 9.2 Component Styling
+```scss
+// Custom SCSS untuk task item
+.task-item {
+  &.completed {
+    .task-title {
+      text-decoration: line-through;
+      opacity: 0.6;
     }
   }
+
+  &.overdue {
+    border-left: 4px solid var(--ion-color-danger);
+  }
+
+  &.favorite {
+    background: linear-gradient(45deg, 
+      var(--ion-color-warning-tint) 0%, 
+      transparent 10%
+    );
+  }
 }
 
-.app-info {
+// Statistics cards
+.stats-card {
+  background: linear-gradient(135deg, 
+    var(--ion-color-primary) 0%, 
+    var(--ion-color-secondary) 100%
+  );
+  color: white;
+  border-radius: 12px;
+  padding: 1rem;
   text-align: center;
-  padding: 40px 20px;
-  color: var(--ion-color-medium);
-  
-  p {
-    margin: 4px 0;
+
+  .stats-number {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  .stats-label {
     font-size: 0.9rem;
+    opacity: 0.8;
   }
 }
+```
+
+### 9.3 Dark Mode Support
+```tsx
+// hooks/useDarkMode.tsx
+import { useEffect, useState } from 'react';
+
+export const useDarkMode = () => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    // Check system preference
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    setIsDarkMode(prefersDark.matches);
+
+    // Listen for changes
+    const handleChange = (e: MediaQueryListEvent) => {
+      setIsDarkMode(e.matches);
+    };
+
+    prefersDark.addEventListener('change', handleChange);
+    return () => prefersDark.removeEventListener('change', handleChange);
+  }, []);
+
+  useEffect(() => {
+    // Apply dark class to body
+    document.body.classList.toggle('dark', isDarkMode);
+  }, [isDarkMode]);
+
+  return [isDarkMode, setIsDarkMode] as const;
+};
+
+// Usage in App component
+const App: React.FC = () => {
+  const [isDarkMode, setIsDarkMode] = useDarkMode();
+
+  return (
+    <IonApp className={isDarkMode ? 'dark-theme' : ''}>
+      {/* App content */}
+    </IonApp>
+  );
+};
 ```
 
 ---
 
-## 📱 Deploy ke Device
+## 10. Build & Deploy
 
-### Langkah 1: Build untuk Production
-
+### 10.1 Build untuk Web
 ```bash
-# Build aplikasi untuk production
+# Development build
+ionic build
+
+# Production build
 ionic build --prod
+
+# Build dengan environment specific
+ionic build --prod --configuration=production
 ```
 
-> 📁 **Hasil build** akan tersimpan di folder `www/`
+### 10.2 Deploy ke Mobile
 
-### Langkah 2: Deploy ke Browser (PWA)
-
-Untuk deploy sebagai Progressive Web App:
-
+#### Android
 ```bash
-# Install PWA elements (kalau belum)
-npm install @ionic/pwa-elements
-
-# Build PWA
-ionic build --prod --service-worker
-
-# Upload folder www/ ke hosting:
-# - Netlify: drag & drop folder www/
-# - Vercel: gunakan CLI vercel
-# - Firebase: firebase deploy
-```
-
-**Deploy ke Netlify (termudah):**
-1. Drag & drop folder `www/` ke [netlify.com/drop](https://netlify.com/drop)
-2. Aplikasi langsung live dengan URL unik!
-
-### Langkah 3: Deploy ke Android
-
-```bash
-# Tambah platform Android
+# Add Android platform
 ionic capacitor add android
 
-# Build dan sync ke platform Android
+# Build and sync
 ionic capacitor build android
 
-# Buka di Android Studio
+# Open in Android Studio
 ionic capacitor open android
+
+# Run on device
+ionic capacitor run android --livereload --external
 ```
 
-**Di Android Studio:**
-1. Tunggu gradle sync selesai
-2. Connect device Android via USB (enable USB debugging)
-3. Klik ▶️ Run untuk install ke device
-4. Atau klik **Build > Build Bundle(s) / APK(s) > Build APK(s)** untuk generate APK
-
-### Langkah 4: Deploy ke iOS (Mac only)
-
+#### iOS
 ```bash
-# Tambah platform iOS
+# Add iOS platform
 ionic capacitor add ios
 
-# Build dan sync ke platform iOS
+# Build and sync
 ionic capacitor build ios
 
-# Buka di Xcode
+# Open in Xcode
 ionic capacitor open ios
+
+# Run on device
+ionic capacitor run ios --livereload --external
 ```
 
-**Di Xcode:**
-1. Select development team (perlu Apple Developer Account)
-2. Connect iPhone/iPad via USB
-3. Klik ▶️ Run untuk install ke device
-
-### 🔧 Troubleshooting Deploy
-
-**Problem: Gradle build failed (Android)**
+### 10.3 Progressive Web App (PWA)
 ```bash
-# Update Android SDK di Android Studio
-# Tools > SDK Manager > Update all
+# Install PWA elements
+npm install @ionic/pwa-elements
 
-# Clean dan rebuild
-cd android
-./gradlew clean
-cd ..
-ionic capacitor build android
+# Add to src/index.tsx
+import { defineCustomElements } from '@ionic/pwa-elements/loader';
+defineCustomElements(window);
 ```
 
-**Problem: iOS build failed**
+### 10.4 Deploy ke Web Hosting
+
+#### Netlify
 ```bash
-# Update iOS dependencies
-cd ios/App
-pod install
-cd ../..
-ionic capacitor build ios
+# Build
+ionic build --prod
+
+# Install Netlify CLI
+npm install -g netlify-cli
+
+# Deploy
+netlify deploy --prod --dir=build
 ```
 
-**Problem: App tidak loading di device**
-- Pastikan `ionic build --prod` sukses
-- Check network connectivity di device
-- Enable developer mode di device
+#### Vercel
+```bash
+# Install Vercel CLI
+npm install -g vercel
+
+# Deploy
+vercel --prod
+```
+
+#### Firebase Hosting
+```bash
+# Install Firebase CLI
+npm install -g firebase-tools
+
+# Initialize
+firebase init hosting
+
+# Deploy
+firebase deploy
+```
 
 ---
 
-## 🎉 Selamat!
+## 🎯 Next Steps
 
-Kamu sudah berhasil membuat aplikasi Ionic lengkap dengan:
+### 1. Advanced Features
+- Push notifications
+- Offline sync dengan Service Workers
+- Real-time collaboration
+- File attachments
+- Voice notes
+- Geolocation reminders
 
-✅ **Multi-page navigation** dengan tabs  
-✅ **Dark mode** toggle  
-✅ **Local storage** untuk menyimpan data  
-✅ **Responsive design** yang cantik  
-✅ **Deploy ke device** Android/iOS  
+### 2. Backend Integration
+- Firebase/Firestore
+- Supabase
+- REST API dengan Express.js
+- GraphQL dengan Apollo
 
-### 🚀 Langkah Selanjutnya
+### 3. Testing
+- Unit testing dengan Jest
+- E2E testing dengan Cypress
+- Component testing dengan React Testing Library
 
-1. **Add more features**: Search, categories, due dates
-2. **Learn state management**: NgRx untuk Angular
-3. **Add native features**: Push notifications, camera
-4. **Backend integration**: Firebase, REST APIs
-5. **Testing**: Unit tests dengan Jest
-6. **Performance**: Lazy loading, virtual scrolling
+### 4. Performance Optimization
+- Lazy loading components
+- Virtual scrolling untuk list besar
+- Image optimization
+- Bundle size optimization
 
-### 📚 Resources untuk Belajar Lebih
-
-- **Official Docs**: [ionicframework.com/docs](https://ionicframework.com/docs)
-- **Ionic Blog**: Tips dan tutorial terbaru
-- **GitHub**: Explore open source Ionic projects
-- **Capacitor Plugins**: [capacitorjs.com/docs/plugins](https://capacitorjs.com/docs/plugins)
-
-> 💡 **Pro tip**: Join komunitas Ionic di Discord atau Forum untuk bertanya dan sharing!
-
-**Happy coding! 🚀📱**
+Selamat! Anda telah memiliki foundation yang solid untuk mengembangkan aplikasi Ionic React yang lebih kompleks. 🚀
